@@ -7,12 +7,9 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Document
 public class Category {
-	@JsonIgnore
+
 	@Id
 	private String id;
 
