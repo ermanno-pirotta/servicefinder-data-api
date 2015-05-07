@@ -1,8 +1,7 @@
 package servicefinder.data.api;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.nio.charset.Charset;
@@ -64,9 +63,9 @@ public class CategoryControllerTests{
 	  this.mockMvc.perform(post("/categories")
 			              .contentType(contentType)
 			              .content(categoryJson))
-				  .andExpect(status().isCreated());
-              //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-              //.andExpect(content().json(categoryJson));
+				  .andExpect(status().isCreated())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+              .andExpect(content().json(categoryJson));
   }
   
   @Test(expected=IllegalArgumentException.class)
@@ -87,7 +86,7 @@ public class CategoryControllerTests{
 			  			  .contentType(contentType)
 			  			  .content(this.createTestCategoryAsJson(categoryName)))
 			  		.andExpect(status().isConflict());
-  }
+  }  
   
   private String createTestCategoryAsJson(String name) throws JsonProcessingException{
 	  return this.jsonMapper.writeValueAsString(this.createTestCategory(name));
