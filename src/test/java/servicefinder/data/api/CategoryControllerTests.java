@@ -4,31 +4,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.http.MediaType;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
 import servicefinder.data.ServicefinderDataApiTest;
 import servicefinder.data.model.Category;
 import servicefinder.data.model.CategoryRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author piro84
@@ -37,28 +30,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ServicefinderDataApiTest.class)
 @WebAppConfiguration
-public class CategoryControllerTests{
-
- private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-	            MediaType.APPLICATION_JSON.getSubtype(),
-	            Charset.forName("utf8"));	
-	
-  private MockMvc mockMvc;  
-  
-  @Autowired
-  private WebApplicationContext webApplicationContext;
+public class CategoryControllerTests extends ControllerTest{  
 
   @Autowired
   private CategoryRepository categoryRepository;
-  
-  private ObjectMapper jsonMapper;
-  
-  @Before
-  public void setup() throws Exception {
-    this.mockMvc = webAppContextSetup(webApplicationContext).build();
-    this.jsonMapper = new ObjectMapper();
-  }        
-
+   
   @Test
   public void shouldAddANewCategory() throws Exception{
 	  Category category = createTestCategory("test");
@@ -79,7 +55,7 @@ public class CategoryControllerTests{
 	  
 	  this.mockMvc.perform(post("/categories")
 			              .contentType(contentType)
-			              .content(this.jsonOf(createTestCategory(null))));
+			              .content(jsonOf(createTestCategory(null))));
   }  
   
   @Test
@@ -127,7 +103,7 @@ public class CategoryControllerTests{
   
   @Test
   public void shouldReturnANoContentWhenCategoryIsMissing() throws Exception{
-	  this.mockMvc.perform(get("/categories/test1")
+	  this.mockMvc.perform(get("/categories/NotExisting")
 				.contentType(contentType))
 	  .andExpect(status().isNoContent());	  	 
   }
@@ -145,9 +121,10 @@ public class CategoryControllerTests{
 	  }
 	  
 	  return categoryList;
-  }  
-  
-  private String jsonOf(Object objectToConvert) throws JsonProcessingException{
-	  return this.jsonMapper.writeValueAsString(objectToConvert);
   }
+
+	@Override
+	protected CrudRepository<?, String> getRepository() {
+		return categoryRepository;
+	}     
 }

@@ -8,7 +8,7 @@ import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
 @Document
-public class Category {
+public class Category implements Resource{
 
 	@Id
 	private String id;

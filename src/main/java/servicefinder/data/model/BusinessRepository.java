@@ -2,6 +2,5 @@ package servicefinder.data.model;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CategoryRepository extends CrudRepository<Category, String> {
-	
+public interface BusinessRepository extends CrudRepository<Business, String> {
 }
