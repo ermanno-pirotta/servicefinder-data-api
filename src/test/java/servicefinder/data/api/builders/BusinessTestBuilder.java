@@ -1,6 +1,6 @@
 package servicefinder.data.api.builders;
 
-import servicefinder.data.model.Business;
+import servicefinder.data.api.business.Business;
 
 public class BusinessTestBuilder {
 	public final static String DEFAULT_FISCAL_CODE = "test";

@@ -1,4 +1,4 @@
-package servicefinder.data.model;
+package servicefinder.data.api.category;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,4 @@
-package servicefinder.data.dispatcher;
+package servicefinder.data.api.quote;
 
 import org.springframework.stereotype.Component;
 

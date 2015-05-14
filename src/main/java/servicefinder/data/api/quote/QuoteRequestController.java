@@ -1,4 +1,4 @@
-package servicefinder.data.api;
+package servicefinder.data.api.quote;
 
 import net.spy.memcached.compat.log.Logger;
 import net.spy.memcached.compat.log.LoggerFactory;
@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import servicefinder.data.configuration.JmsConfiguration;
-import servicefinder.data.model.QuoteRequest;
-import servicefinder.data.model.QuoteRequestRepository;
+import servicefinder.data.api.common.HttpHeaderBuilder;
+import servicefinder.data.api.configuration.JmsConfiguration;
 
 @RestController
 @RequestMapping("/quotes")

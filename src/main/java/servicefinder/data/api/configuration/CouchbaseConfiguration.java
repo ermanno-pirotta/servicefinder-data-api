@@ -1,4 +1,4 @@
-package servicefinder.data.configuration;
+package servicefinder.data.api.configuration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
-@EnableCouchbaseRepositories("servicefinder.data.model")
+@EnableCouchbaseRepositories("servicefinder.data.api")
 @Configuration
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration{
 	@Value("${couchbase.cluster.bucket}")

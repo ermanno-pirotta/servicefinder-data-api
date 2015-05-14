@@ -1,4 +1,4 @@
-package servicefinder.data.model;
+package servicefinder.data.api.quote;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
+
+import servicefinder.data.api.category.Category;
+import servicefinder.data.api.common.Resource;
 
 @Document
 public class QuoteRequest implements Resource, Serializable{

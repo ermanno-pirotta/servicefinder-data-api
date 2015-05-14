@@ -1,4 +1,4 @@
-package servicefinder.data.model;
+package servicefinder.data.api.business;
 
 import java.util.List;
 
@@ -6,6 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
+
+import servicefinder.data.api.category.Category;
+import servicefinder.data.api.common.Resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

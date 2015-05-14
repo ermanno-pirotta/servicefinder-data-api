@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
 import servicefinder.data.api.builders.CategoryTestBuilder;
-import servicefinder.data.model.Category;
-import servicefinder.data.model.CategoryRepository;
+import servicefinder.data.api.category.Category;
+import servicefinder.data.api.category.CategoryRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

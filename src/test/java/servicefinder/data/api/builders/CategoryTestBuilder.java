@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import servicefinder.data.model.Category;
+import servicefinder.data.api.category.Category;
 
 public class CategoryTestBuilder {
 	public final static String DEFAULT_NAME = "test";

@@ -1,4 +1,4 @@
-package servicefinder.data.model;
+package servicefinder.data.api.category;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
+
+import servicefinder.data.api.common.Resource;
 
 @Document
 public class Category implements Serializable, Resource{

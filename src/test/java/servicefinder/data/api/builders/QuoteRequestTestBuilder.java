@@ -1,6 +1,6 @@
 package servicefinder.data.api.builders;
 
-import servicefinder.data.model.QuoteRequest;
+import servicefinder.data.api.quote.QuoteRequest;
 
 public class QuoteRequestTestBuilder {
 	public static QuoteRequest buildTestQuote(){

@@ -1,4 +1,4 @@
-package servicefinder.data.dispatcher;
+package servicefinder.data.api.quote;
 
 import net.spy.memcached.compat.log.LoggerFactory;
 
@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import servicefinder.data.configuration.JmsConfiguration;
-import servicefinder.data.model.QuoteRequest;
-import servicefinder.data.model.QuoteRequestRepository;
+import servicefinder.data.api.configuration.JmsConfiguration;
 
 @Component
 public class QuoteDispatcher {

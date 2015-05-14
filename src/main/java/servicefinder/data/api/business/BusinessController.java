@@ -1,4 +1,4 @@
-package servicefinder.data.api;
+package servicefinder.data.api.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import servicefinder.data.model.Business;
-import servicefinder.data.model.BusinessRepository;
+import servicefinder.data.api.common.HttpHeaderBuilder;
 
 @RestController
 @RequestMapping("/businesses")

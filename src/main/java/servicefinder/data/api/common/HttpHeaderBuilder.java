@@ -1,4 +1,4 @@
-package servicefinder.data.api;
+package servicefinder.data.api.common;
 
 import java.nio.charset.Charset;
 
@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import servicefinder.data.model.Resource;
 
 @Component
 public class HttpHeaderBuilder {

@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
 import servicefinder.data.api.builders.BusinessTestBuilder;
-import servicefinder.data.model.Business;
-import servicefinder.data.model.BusinessRepository;
+import servicefinder.data.api.business.Business;
+import servicefinder.data.api.business.BusinessRepository;
 
 public class BusinessControllerTests extends ControllerTest {
 

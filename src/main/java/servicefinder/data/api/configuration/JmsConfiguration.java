@@ -1,4 +1,4 @@
-package servicefinder.data.configuration;
+package servicefinder.data.api.configuration;
 
 import javax.jms.ConnectionFactory;
 

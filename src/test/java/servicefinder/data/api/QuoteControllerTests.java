@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
 import servicefinder.data.api.builders.QuoteRequestTestBuilder;
-import servicefinder.data.model.QuoteRequest;
-import servicefinder.data.model.QuoteRequestRepository;
+import servicefinder.data.api.quote.QuoteRequest;
+import servicefinder.data.api.quote.QuoteRequestRepository;
 
 public class QuoteControllerTests extends ControllerTest {
 
