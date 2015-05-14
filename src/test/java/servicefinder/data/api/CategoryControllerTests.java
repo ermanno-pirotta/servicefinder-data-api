@@ -5,31 +5,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import servicefinder.data.ServicefinderDataApiTest;
+import servicefinder.data.api.builders.CategoryTestBuilder;
 import servicefinder.data.model.Category;
 import servicefinder.data.model.CategoryRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-/**
- * @author piro84
- *
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ServicefinderDataApiTest.class)
-@WebAppConfiguration
 public class CategoryControllerTests extends ControllerTest{  
 
   @Autowired
@@ -37,7 +24,7 @@ public class CategoryControllerTests extends ControllerTest{
    
   @Test
   public void shouldAddANewCategory() throws Exception{
-	  Category category = createTestCategory("test");
+	  Category category = CategoryTestBuilder.buildTestCategory();
 	  String categoryJson = this.jsonOf(category);
 
 	  this.mockMvc.perform(post("/categories")
@@ -55,12 +42,12 @@ public class CategoryControllerTests extends ControllerTest{
 	  
 	  this.mockMvc.perform(post("/categories")
 			              .contentType(contentType)
-			              .content(jsonOf(createTestCategory(null))));
+			              .content(jsonOf(CategoryTestBuilder.buildTestCategory(null))));
   }  
   
   @Test
   public void shouldGiveAConflictWhenCreatingWithExistingName() throws Exception{	  
-	  Category category = createTestCategory("test");	  
+	  Category category = CategoryTestBuilder.buildTestCategory();	  
 	  this.categoryRepository.save(category);
 	  
 	  this.mockMvc.perform(post("/categories")
@@ -73,7 +60,7 @@ public class CategoryControllerTests extends ControllerTest{
   
   @Test
   public void shouldReturnAListOfCategories() throws Exception{
-	  List<Category> categories = createTestCategoryList("test1", "test2"); 
+	  List<Category> categories = CategoryTestBuilder.buildTestCategoryList("test1", "test2"); 
 	  this.categoryRepository.save(categories);
 	  
 	  this.mockMvc.perform(get("/categories")
@@ -87,7 +74,7 @@ public class CategoryControllerTests extends ControllerTest{
   
   @Test
   public void shouldReturnASpecificCategory() throws JsonProcessingException, Exception{
-	  List<Category> categories = createTestCategoryList("test1", "test2"); 
+	  List<Category> categories = CategoryTestBuilder.buildTestCategoryList("test1", "test2"); 
 	  this.categoryRepository.save(categories);
 	  
 	  Category categoryToBeRetrieved = categories.get(0);
@@ -106,23 +93,8 @@ public class CategoryControllerTests extends ControllerTest{
 	  this.mockMvc.perform(get("/categories/NotExisting")
 				.contentType(contentType))
 	  .andExpect(status().isNoContent());	  	 
-  }
+  }    
   
-  
-  private Category createTestCategory(String name){
-	  return new Category(name, Arrays.asList(new String[]{"test service 1","test service 2"}));
-  }   
-  
-  private List<Category> createTestCategoryList(String... names){
-	  List<Category> categoryList = new ArrayList<Category>(names.length);
-	  
-	  for(String name : names){
-		  categoryList.add(createTestCategory(name));
-	  }
-	  
-	  return categoryList;
-  }
-
 	@Override
 	protected CrudRepository<?, String> getRepository() {
 		return categoryRepository;

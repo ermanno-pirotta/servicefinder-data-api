@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
-@EnableCouchbaseRepositories("servicefinder.data")
+@EnableCouchbaseRepositories("servicefinder.data.model")
 @Configuration
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration{
 	@Value("${couchbase.cluster.bucket}")

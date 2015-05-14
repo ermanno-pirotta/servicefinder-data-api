@@ -3,11 +3,13 @@ package servicefinder.data.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Document
 public class Business implements Resource{
 	@Id
 	private String id;
@@ -39,6 +41,8 @@ public class Business implements Resource{
 	
 	@Field
 	private Long longitude;
+	
+	private Integer travelRangeInKm;
 
 	@Field
 	private Category category;
@@ -117,6 +121,14 @@ public class Business implements Resource{
 
 	public void setLongitude(Long longitude) {
 		this.longitude = longitude;
+	}
+
+	public Integer getTravelRangeInKm() {
+		return travelRangeInKm;
+	}
+
+	public void setTravelRangeInKm(Integer travelRangeInKm) {
+		this.travelRangeInKm = travelRangeInKm;
 	}
 
 	public Category getCategory() {

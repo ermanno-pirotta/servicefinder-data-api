@@ -9,20 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import servicefinder.data.ServicefinderDataApiTest;
+import servicefinder.data.api.builders.BusinessTestBuilder;
 import servicefinder.data.model.Business;
 import servicefinder.data.model.BusinessRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ServicefinderDataApiTest.class)
-@WebAppConfiguration
 public class BusinessControllerTests extends ControllerTest {
 
 	@Autowired
@@ -31,7 +24,7 @@ public class BusinessControllerTests extends ControllerTest {
 	@Test
 	public void shouldFindByFiscalCode() throws Exception {
 		final String fiscalCode = "fiscalCode";
-		Business business = createTestBusiness(fiscalCode);
+		Business business = BusinessTestBuilder.buildTestBusiness(fiscalCode);
 		business = businessRepository.save(business);
 
 		this.mockMvc.perform(get("/businesses/" + Business.buildIdFromFiscalCode(fiscalCode))
@@ -52,7 +45,7 @@ public class BusinessControllerTests extends ControllerTest {
 
 	@Test
 	public void shouldAddANewBusiness() throws Exception{
-		Business business = createTestBusiness("test");
+		Business business = BusinessTestBuilder.buildTestBusiness();
 		  String businessJson = this.jsonOf(business);
 
 		  this.mockMvc.perform(post("/businesses")
@@ -68,7 +61,7 @@ public class BusinessControllerTests extends ControllerTest {
 	@Test
 	public void shouldGiveAConflictWhenCreatingWithExistingFiscalCode()
 			throws Exception {
-		Business business = createTestBusiness("test");
+		Business business = BusinessTestBuilder.buildTestBusiness();
 		businessRepository.save(business);
 
 		this.mockMvc.perform(post("/businesses")
@@ -83,7 +76,7 @@ public class BusinessControllerTests extends ControllerTest {
 	@Ignore
 	public void shouldUnsubscribeAnExistingBusiness() throws Exception {
 		String fiscalCode = "test";
-		Business business = createTestBusiness(fiscalCode);
+		Business business = BusinessTestBuilder.buildTestBusiness(fiscalCode);
 		businessRepository.save(business);
 		
 		this.mockMvc.perform(delete("/businesses" + Business.buildIdFromFiscalCode(fiscalCode) ))
@@ -94,15 +87,9 @@ public class BusinessControllerTests extends ControllerTest {
 	}
 
 	@Test
-	@Ignore
 	public void shouldGiveAnHttpPreconditionFailedErrorWhenDeletingNotExisting() throws Exception{
-		this.mockMvc.perform(delete("/businesses" + Business.buildIdFromFiscalCode("NotExisting") ))
+		this.mockMvc.perform(delete("/businesses/" + Business.buildIdFromFiscalCode("NotExisting") ))
 							.andExpect(status().isPreconditionFailed());
-	}
-
-	private Business createTestBusiness(String fiscalCode) {
-		Business business = new Business(fiscalCode);
-		return business;
 	}
 
 	@Override

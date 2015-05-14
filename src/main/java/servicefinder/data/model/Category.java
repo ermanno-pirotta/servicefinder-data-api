@@ -1,5 +1,6 @@
 package servicefinder.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -8,7 +9,9 @@ import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
 @Document
-public class Category implements Resource{
+public class Category implements Serializable, Resource{
+
+	private static final long serialVersionUID = 5672760542691584764L;
 
 	@Id
 	private String id;
@@ -53,5 +56,10 @@ public class Category implements Resource{
 			throw new IllegalArgumentException("name must not be null or empty");
 		}
 		return "_category_" + StringUtils.trimAllWhitespace(name).toLowerCase();
+	}
+	
+	@Override
+	public String toString(){
+		return this.name;
 	}
 }

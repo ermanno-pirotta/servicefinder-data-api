@@ -1,21 +1,16 @@
 package servicefinder.data;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import servicefinder.data.configuration.CouchbaseConfiguration;
+import servicefinder.data.configuration.JmsConfiguration;
 
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableWebMvc
-@Configuration
-@ComponentScan
-@PropertySource("classpath:application.properties")
-@Import(CouchbaseConfiguration.class)
+@Import({CouchbaseConfiguration.class, JmsConfiguration.class})
 public class ServicefinderDataApiApplication {
 	
     public static void main(String[] args) {
