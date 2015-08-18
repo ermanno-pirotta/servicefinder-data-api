@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
-import servicefinder.data.api.category.Category;
 import servicefinder.data.api.common.Resource;
 
 @Document
@@ -26,12 +25,13 @@ public class QuoteRequest implements Resource, Serializable{
 	private String surname;
 	private String email;
 	private String phone;
-	private String zipCode;
+	private String postalCode;
+	private String placeName;
 	
-	private Category category;
+	private String categoryName;
 	private List<String> requestedServices;
 	private String description;
-	private boolean isActive;
+	private boolean isValid;
 
 	public QuoteRequest() {
 		this.creationTimestamp = new Date();
@@ -78,20 +78,28 @@ public class QuoteRequest implements Resource, Serializable{
 		this.phone = phone;
 	}
 
-	public String getZipCode() {
-		return zipCode;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
-	public Category getCategory() {
-		return category;
+	public String getPlaceName() {
+		return placeName;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public List<String> getRequestedServices() {
@@ -110,12 +118,12 @@ public class QuoteRequest implements Resource, Serializable{
 		this.description = description;
 	}
 
-	public boolean isActive() {
-		return isActive;
+	public boolean isValid() {
+		return isValid;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
 	}
 
 	public Date getCreationTimestamp() {
@@ -123,7 +131,7 @@ public class QuoteRequest implements Resource, Serializable{
 	}
 
 	public static String buildIdFromTimestamp(Date creationTimestamp){
-		return "#" + String.valueOf(creationTimestamp.getTime());
+		return "_quoterequest_" + String.valueOf(creationTimestamp.getTime());
 	}
 
 }

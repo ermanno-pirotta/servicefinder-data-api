@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
-@EnableCouchbaseRepositories("servicefinder.data.api")
+@EnableCouchbaseRepositories(basePackages = {"servicefinder.data.api","geonames.importer.postalcode"})
 @Configuration
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration{
 	@Value("${couchbase.cluster.bucket}")

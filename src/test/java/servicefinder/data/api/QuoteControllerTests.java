@@ -1,5 +1,6 @@
 package servicefinder.data.api;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,6 +12,8 @@ import org.springframework.data.repository.CrudRepository;
 import servicefinder.data.api.builders.QuoteRequestTestBuilder;
 import servicefinder.data.api.quote.QuoteRequest;
 import servicefinder.data.api.quote.QuoteRequestRepository;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class QuoteControllerTests extends ControllerTest {
 
@@ -31,6 +34,20 @@ public class QuoteControllerTests extends ControllerTest {
 		
 		quoteRequestRepository.deleteAll();
 	}
+	
+	 @Test
+	  public void shouldReturnASpecificQuoteRequest() throws JsonProcessingException, Exception{
+		  QuoteRequest request = QuoteRequestTestBuilder.buildTestQuote(); 
+		  this.quoteRequestRepository.save(request);
+		  
+		  this.mockMvc.perform(get("/quotes/" + QuoteRequest.buildIdFromTimestamp(request.getCreationTimestamp()))
+				  				.contentType(contentType))
+				  	  .andExpect(status().isOk())
+				  	  .andExpect(content().contentType(contentType))
+				  	  .andExpect(content().json(this.jsonOf(request)));		
+		  
+		  quoteRequestRepository.delete(request);
+	  }
 	
 	@Override
 	protected CrudRepository<?, String> getRepository() {

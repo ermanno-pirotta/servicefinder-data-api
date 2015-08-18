@@ -1,6 +1,8 @@
 package servicefinder.data.api.business;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
@@ -52,6 +54,9 @@ public class Business implements Resource{
 	
 	@Field
 	private List<String> providedServices;
+	
+	@Field
+	private Set<String> pendingQuotes = new HashSet<String>();
 
 	public Business(){
 		
@@ -150,6 +155,14 @@ public class Business implements Resource{
 		this.providedServices = providedServices;
 	}
 
+	public Set<String> getPendingQuotes() {
+		return pendingQuotes;
+	}
+
+	public void addQuote(String quote){
+		this.pendingQuotes.add(quote);
+	}
+	
 	public String getId() {
 		return id;
 	}
