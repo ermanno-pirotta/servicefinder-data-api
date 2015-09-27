@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -33,6 +35,7 @@ public class QuoteRequest implements Resource, Serializable{
 	private String description;
 	private boolean isValid;
 
+	//@GeneratePojoBuilder
 	public QuoteRequest() {
 		this.creationTimestamp = new Date();
 		this.id = buildIdFromTimestamp(this.creationTimestamp);

@@ -22,7 +22,7 @@ public class QuoteControllerTests extends ControllerTest {
 
 	@Test
 	public void shouldSaveANewQuoteRequest() throws Exception{
-		QuoteRequest quote = QuoteRequestTestBuilder.buildTestQuote();
+		QuoteRequest quote = new QuoteRequestTestBuilder().build();
 		String quoteAsJson = jsonOf(quote);
 		
 		this.mockMvc.perform(post("/quotes")
@@ -37,7 +37,7 @@ public class QuoteControllerTests extends ControllerTest {
 	
 	 @Test
 	  public void shouldReturnASpecificQuoteRequest() throws JsonProcessingException, Exception{
-		  QuoteRequest request = QuoteRequestTestBuilder.buildTestQuote(); 
+		  QuoteRequest request = new QuoteRequestTestBuilder().build();
 		  this.quoteRequestRepository.save(request);
 		  
 		  this.mockMvc.perform(get("/quotes/" + QuoteRequest.buildIdFromTimestamp(request.getCreationTimestamp()))

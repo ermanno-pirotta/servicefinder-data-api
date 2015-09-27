@@ -3,6 +3,7 @@ package servicefinder.data.api.business;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,11 @@ public class BusinessController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<?> subscribe(@RequestBody Business inputBusiness){				
+	ResponseEntity<?> subscribe(@RequestBody Business inputBusiness){		
+		if(!isValidBusiness(inputBusiness)){
+			return new ResponseEntity<>(inputBusiness, headerBuilder.buildHttpHeadersForResource(inputBusiness), HttpStatus.BAD_REQUEST);
+		}
+		
 		String id = Business.buildIdFromFiscalCode(inputBusiness.getFiscalCode());		
 		
 		Business business = businessRepository.findOne(id);		
@@ -59,5 +64,16 @@ public class BusinessController {
 		else{
 			return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
 		}
+	}
+	
+	//TODO: use validators instead of re-inventing the wheel!
+	private boolean isValidBusiness(Business input){
+		if(input == null 
+				|| StringUtils.isBlank(input.getName())
+				|| StringUtils.isBlank(input.getFiscalCode())){
+			return false;
+		}
+		
+		return true;
 	}
 }

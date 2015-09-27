@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
-import servicefinder.data.api.builders.BusinessTestBuilder;
 import servicefinder.data.api.business.Business;
+import servicefinder.data.api.business.BusinessBuilder;
 import servicefinder.data.api.business.BusinessRepository;
 
 public class BusinessControllerTests extends ControllerTest {
@@ -21,10 +21,11 @@ public class BusinessControllerTests extends ControllerTest {
 	@Autowired
 	BusinessRepository businessRepository;
 
+	final String fiscalCode = "fiscalCode";
+
 	@Test
 	public void shouldFindByFiscalCode() throws Exception {
-		final String fiscalCode = "fiscalCode";
-		Business business = BusinessTestBuilder.buildTestBusiness(fiscalCode);
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).build();
 		business = businessRepository.save(business);
 
 		this.mockMvc.perform(get("/businesses/" + Business.buildIdFromFiscalCode(fiscalCode))
@@ -45,7 +46,7 @@ public class BusinessControllerTests extends ControllerTest {
 
 	@Test
 	public void shouldAddANewBusiness() throws Exception{
-		Business business = BusinessTestBuilder.buildTestBusiness();
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).withName("test").build();
 		  String businessJson = this.jsonOf(business);
 
 		  this.mockMvc.perform(post("/businesses")
@@ -61,7 +62,7 @@ public class BusinessControllerTests extends ControllerTest {
 	@Test
 	public void shouldGiveAConflictWhenCreatingWithExistingFiscalCode()
 			throws Exception {
-		Business business = BusinessTestBuilder.buildTestBusiness();
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).withName("test").build();
 		businessRepository.save(business);
 
 		this.mockMvc.perform(post("/businesses")
@@ -71,12 +72,48 @@ public class BusinessControllerTests extends ControllerTest {
 
 		businessRepository.delete(business);
 	}
+	
+	@Test
+	public void shouldGiveABadRequestWhenCreatingWithEmptyFiscalCode() throws Exception{
+		Business business = new BusinessBuilder().withFiscalCode(" ").build();
+
+		this.mockMvc.perform(post("/businesses")
+							.contentType(contentType)
+							.content(jsonOf(business)))
+					.andExpect(status().isBadRequest());
+
+		businessRepository.delete(business);	
+	}
+	
+	@Test
+	public void shouldGiveABadRequestWhenCreatingWithNullName() throws Exception{
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).withName(null).build();
+
+		this.mockMvc.perform(post("/businesses")
+							.contentType(contentType)
+							.content(jsonOf(business)))
+					.andExpect(status().isBadRequest());
+
+		businessRepository.delete(business);	
+	}
+	
+	@Test
+	public void shouldGiveABadRequestWhenCreatingWithEmptyName() throws Exception{
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).withName(" ").build();
+
+		this.mockMvc.perform(post("/businesses")
+							.contentType(contentType)
+							.content(jsonOf(business)))
+					.andExpect(status().isBadRequest());
+
+		businessRepository.delete(business);	
+	}
 
 	@Test
 	@Ignore
 	public void shouldUnsubscribeAnExistingBusiness() throws Exception {
 		String fiscalCode = "test";
-		Business business = BusinessTestBuilder.buildTestBusiness(fiscalCode);
+		Business business = new BusinessBuilder().withFiscalCode(fiscalCode).build();
 		businessRepository.save(business);
 		
 		this.mockMvc.perform(delete("/businesses" + Business.buildIdFromFiscalCode(fiscalCode) ))
