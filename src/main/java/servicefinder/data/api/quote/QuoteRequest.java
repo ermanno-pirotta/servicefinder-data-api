@@ -35,7 +35,7 @@ public class QuoteRequest implements Resource, Serializable{
 	private String description;
 	private boolean isValid;
 
-	//@GeneratePojoBuilder
+	@GeneratePojoBuilder
 	public QuoteRequest() {
 		this.creationTimestamp = new Date();
 		this.id = buildIdFromTimestamp(this.creationTimestamp);

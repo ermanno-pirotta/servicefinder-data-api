@@ -21,12 +21,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import servicefinder.data.api.builders.QuoteRequestTestBuilder;
 import servicefinder.data.api.business.Business;
 import servicefinder.data.api.business.BusinessBuilder;
 import servicefinder.data.api.business.BusinessFinder;
 import servicefinder.data.api.business.BusinessRepository;
 import servicefinder.data.api.quote.QuoteRequest;
+import servicefinder.data.api.quote.QuoteRequestBuilder;
 
 import com.google.common.collect.Lists;
 import com.javadocmd.simplelatlng.LatLng;
@@ -179,10 +179,11 @@ public class BusinessFinderTests {
 	}
 	
 	private QuoteRequest buildQuoteCloseToPalosco(){
-		QuoteRequest quote = new QuoteRequestTestBuilder()
+		QuoteRequest quote = new QuoteRequestBuilder()
 							.withPlaceName("palosco")
 							.withPostalCode("24050")
 							.withCategoryName(TEST_CATEGORY)
+							.withRequestedServices(Lists.newArrayList("test service 1","test service 2"))
 							.build();
 		return quote;
 	}
