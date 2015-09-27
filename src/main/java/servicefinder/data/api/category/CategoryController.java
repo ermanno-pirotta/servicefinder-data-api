@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import servicefinder.data.api.common.HttpHeaderBuilder;
+import servicefinder.data.api.http.HttpHeaderBuilder;
 
 @RestController
 @RequestMapping("/categories")

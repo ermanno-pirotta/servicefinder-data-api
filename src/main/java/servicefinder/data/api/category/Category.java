@@ -3,12 +3,14 @@ package servicefinder.data.api.category;
 import java.io.Serializable;
 import java.util.List;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
-import servicefinder.data.api.common.Resource;
+import servicefinder.data.api.http.Resource;
 
 @Document
 public class Category implements Serializable, Resource{
@@ -25,6 +27,12 @@ public class Category implements Serializable, Resource{
 
 	public Category(){
 		
+	}
+	
+	@GeneratePojoBuilder
+	public Category(String name){
+		this.name = name;
+		this.id = buildIdFromName(name);
 	}
 	
 	public Category(String name, List<String> services){

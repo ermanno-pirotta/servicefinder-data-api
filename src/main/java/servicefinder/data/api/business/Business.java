@@ -11,7 +11,7 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
-import servicefinder.data.api.common.Resource;
+import servicefinder.data.api.http.Resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

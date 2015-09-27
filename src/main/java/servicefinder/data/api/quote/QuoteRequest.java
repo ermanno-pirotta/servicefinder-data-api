@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
-import servicefinder.data.api.common.Resource;
+import servicefinder.data.api.http.Resource;
 
 @Document
 public class QuoteRequest implements Resource, Serializable{

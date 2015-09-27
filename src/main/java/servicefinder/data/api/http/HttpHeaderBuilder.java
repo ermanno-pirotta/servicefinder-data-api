@@ -1,4 +1,4 @@
-package servicefinder.data.api.common;
+package servicefinder.data.api.http;
 
 import java.nio.charset.Charset;
 
