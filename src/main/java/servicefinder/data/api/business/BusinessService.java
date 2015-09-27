@@ -3,7 +3,6 @@ package servicefinder.data.api.business;
 import geonames.importer.postalcode.PostalCode;
 import geonames.importer.postalcode.PostalCodeFinder;
 
-import java.util.List;
 import java.util.Map;
 
 import net.spy.memcached.compat.log.Logger;
@@ -28,6 +27,9 @@ public class BusinessService {
 	@Autowired 
 	BusinessFinder businessFinder;
 	
+	@Autowired
+	BusinessRepository repository;
+	
 	@JmsListener(destination = JmsConfiguration.QUOTES_DESTINATION_NAME, containerFactory = "jmsContainerFactory")
 	public void notifyBusinessesAboutQuote(QuoteRequest request){		
 		logger.info(String.format("Received quote in category %s for user with email %s..", request.getCategoryName(), request.getEmail()));
@@ -35,10 +37,10 @@ public class BusinessService {
 		//1 search for business that should receive a notification, based on service offering and location
 		LatLng customerCoordinates = findCoordinatesOfTargetCustomer(request.getPlaceName(),request.getPostalCode());
 		
-		Map<Business, Integer> businessesWithRequestedService = businessFinder.findByProvidedServices(request.getRequestedServices());
-		//List<Business> businessesThatQualifiesAlsoByDistance = businessFinder.filterByLocation(businessesWithRequestedService, customerCoordinates);
+		Map<Business, Integer> matchingBusinesses = businessFinder.findByServiceAndLocation(request.getRequestedServices(), customerCoordinates);
 		
 		//2 if a business qualifies for the quote, update it with the quote id
+		updateBusinesses(matchingBusinesses, request.getId());
 		
 		//3 send an email to the businesses
 	}
@@ -46,5 +48,16 @@ public class BusinessService {
 	private LatLng findCoordinatesOfTargetCustomer(String placeName, String postalCode){
 		PostalCode requestPostalCode = finder.findByPlaceNameAndPostalCode(placeName, postalCode);
 		return new LatLng(requestPostalCode.getLatitude(), requestPostalCode.getLongitude());
+	}
+	
+	public void updateBusinesses(Map<Business, Integer> businesses, String quote){
+		for(Business business: businesses.keySet()){
+			updateBusinessWithQuoteId(business,quote);
+		}
+	}
+	
+	private void updateBusinessWithQuoteId(Business business, String quote){
+		business.addQuote(quote);
+		repository.save(business);
 	}
 }
