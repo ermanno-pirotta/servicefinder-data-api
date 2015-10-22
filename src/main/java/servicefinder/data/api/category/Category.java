@@ -22,6 +22,10 @@ public class Category implements Serializable, Resource{
 
 	@Field
 	private String name;
+	
+	@Field
+	private String description;
+	
 	@Field
 	private List<String> services;
 
@@ -47,6 +51,14 @@ public class Category implements Serializable, Resource{
 
 	public String getName() {
 		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<String> getServices() {
