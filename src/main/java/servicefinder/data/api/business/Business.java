@@ -27,9 +27,6 @@ public class Business implements Resource, Comparable<Business>{
 	private String name;
 	
 	@Field
-	private String surname;
-	
-	@Field
 	private String phone;
 	
 	@Field
@@ -41,6 +38,12 @@ public class Business implements Resource, Comparable<Business>{
 
 	@Field
 	private String address;
+
+	@Field
+	private String city;
+	
+	@Field
+	private String postalCode;
 	
 	@Field
 	private Double latitude;
@@ -51,7 +54,7 @@ public class Business implements Resource, Comparable<Business>{
 	private Integer travelRangeInKm;
 
 	@Field
-	private String categoryName;
+	private String categoryId;
 	
 	@Field
 	private List<String> providedServices;
@@ -74,14 +77,6 @@ public class Business implements Resource, Comparable<Business>{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getPhone() {
@@ -112,8 +107,8 @@ public class Business implements Resource, Comparable<Business>{
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress(String street) {
+		this.address = street;
 	}
 
 	public Double getLatitude() {
@@ -141,12 +136,12 @@ public class Business implements Resource, Comparable<Business>{
 	}
 
 
-	public String getCategoryName() {
-		return categoryName;
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public List<String> getProvidedServices() {
@@ -180,6 +175,22 @@ public class Business implements Resource, Comparable<Business>{
 		
 	}
 	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
 	public static String buildIdFromFiscalCode(String fiscalCode){
 		if(fiscalCode == null || fiscalCode.isEmpty()){
 			throw new IllegalArgumentException("fiscal must not be null or empty");
@@ -193,7 +204,7 @@ public class Business implements Resource, Comparable<Business>{
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result
-				+ ((categoryName == null) ? 0 : categoryName.hashCode());
+				+ ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((fiscalCode == null) ? 0 : fiscalCode.hashCode());
@@ -211,7 +222,6 @@ public class Business implements Resource, Comparable<Business>{
 		result = prime
 				* result
 				+ ((providedServices == null) ? 0 : providedServices.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		result = prime * result
 				+ ((travelRangeInKm == null) ? 0 : travelRangeInKm.hashCode());
 		return result;
@@ -231,10 +241,10 @@ public class Business implements Resource, Comparable<Business>{
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (categoryName == null) {
-			if (other.categoryName != null)
+		if (categoryId == null) {
+			if (other.categoryId != null)
 				return false;
-		} else if (!categoryName.equals(other.categoryName))
+		} else if (!categoryId.equals(other.categoryId))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -285,11 +295,6 @@ public class Business implements Resource, Comparable<Business>{
 			if (other.providedServices != null)
 				return false;
 		} else if (!providedServices.equals(other.providedServices))
-			return false;
-		if (surname == null) {
-			if (other.surname != null)
-				return false;
-		} else if (!surname.equals(other.surname))
 			return false;
 		if (travelRangeInKm == null) {
 			if (other.travelRangeInKm != null)

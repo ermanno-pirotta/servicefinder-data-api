@@ -26,7 +26,7 @@ public class InitRunner implements CommandLineRunner{
     public void initCategories(){
     	repo.deleteAll();
     	//http://www.avvocatomatteobertocchi.it/servizi/
-    	CategoryBuilder builder = new CategoryBuilder().withName("avvocati")
+    	CategoryBuilder builder = new CategoryBuilder().withName("Avvocati")
     			.withDescription("Professionisti per diritto civile, penale, internazionale e molto altro!")
     			.withServices(
     			Arrays.asList("Diritto civile",
@@ -46,7 +46,7 @@ public class InitRunner implements CommandLineRunner{
     						));
     	repo.save(builder.build());
     	
-    	builder = new CategoryBuilder().withName("commercialisti")
+    	builder = new CategoryBuilder().withName("Commercialisti")
     			.withDescription("Professionisti per problemi fiscali del privato o dell'impresa.")
     			.withServices(
     			Arrays.asList("Compilazione modello UNICO",
@@ -61,7 +61,7 @@ public class InitRunner implements CommandLineRunner{
     						  ));
     	repo.save(builder.build());
     	
-    	builder = new CategoryBuilder().withName("notai")
+    	builder = new CategoryBuilder().withName("Notai")
     			.withDescription("Professionisti per tutte le pratiche notarili di cui hai bisogno")
     			.withServices(
     			Arrays.asList("Compravendite, divisioni, permute e altri atti immobiliari",
@@ -83,7 +83,7 @@ public class InitRunner implements CommandLineRunner{
     						));
     	repo.save(builder.build());
     	
-    	builder = new CategoryBuilder().withName("consulenti finanziari")
+    	builder = new CategoryBuilder().withName("Consulenti finanziari")
     			.withDescription("Professionisti che ti aiutano a mettere sotto controllo le tue finanze e investimenti.")
     			.withServices(
     			Arrays.asList("Analisi portfolio"));

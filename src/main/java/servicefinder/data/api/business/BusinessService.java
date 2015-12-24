@@ -32,17 +32,19 @@ public class BusinessService {
 	
 	@JmsListener(destination = JmsConfiguration.QUOTES_DESTINATION_NAME, containerFactory = "jmsContainerFactory")
 	public void notifyBusinessesAboutQuote(QuoteRequest request){		
-		logger.info(String.format("Received quote in category %s for user with email %s..", request.getCategoryName(), request.getEmail()));
+		logger.info(String.format("Received quote in category %s for user with email %s with id %s..", request.getCategoryName(), request.getEmail(), request.getId()));
 		
 		//1 search for business that should receive a notification, based on service offering and location
 		LatLng customerCoordinates = findCoordinatesOfTargetCustomer(request.getPlaceName(),request.getPostalCode());
 		
 		Map<Business, Integer> matchingBusinesses = businessFinder.findByServiceAndLocation(request.getRequestedServices(), customerCoordinates);
 		
+		logger.info("found %d businesses that match the request", matchingBusinesses.keySet().size());
 		//2 if a business qualifies for the quote, update it with the quote id
-		updateBusinesses(matchingBusinesses, request.getId());
+		//updateBusinesses(matchingBusinesses, request.getId());
 		
 		//3 send an email to the businesses
+		
 	}
 	
 	private LatLng findCoordinatesOfTargetCustomer(String placeName, String postalCode){
