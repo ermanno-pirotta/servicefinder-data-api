@@ -12,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 import servicefinder.data.api.quote.QuoteRequest;
 import servicefinder.data.api.quote.QuoteRequestBuilder;
 import servicefinder.data.api.quote.QuoteRequestRepository;
+import servicefinder.data.api.quote.View;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.Lists;
@@ -41,11 +42,11 @@ public class QuoteControllerTests extends ControllerTest {
 		  QuoteRequest request = buildQuoteWithDefaultValues();
 		  this.quoteRequestRepository.save(request);
 		  
-		  this.mockMvc.perform(get("/quotes/" + QuoteRequest.buildIdFromTimestamp(request.getCreationTimestamp()))
+		  this.mockMvc.perform(get("/quotes/" + request.getCreationTimestamp().getTime())
 				  				.contentType(contentType))
 				  	  .andExpect(status().isOk())
 				  	  .andExpect(content().contentType(contentType))
-				  	  .andExpect(content().json(this.jsonOf(request)));		
+				  	  .andExpect(content().json(this.jsonOf(request, View.class)));		
 		  
 		  quoteRequestRepository.delete(request);
 	  }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all" th-text="${subject}"></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.notification.business.greeting(${name})}">
+        </p>
+        <p th:text="#{email.notification.business.line1( ${service},${city},${postalCode})}">
+        </p>
+        <p th:text="#{email.notification.business.line2}">
+        </p>
+        <p>
+        <a th:text="${unlockLink}" th:href="@{${unlockLink}}">link</a> 
+        </p>
+        <p th:text="#{email.notification.business.thankyou}">
+        </p>
+        <p th:text="#{company.team}">
+        </p>
+    </body>
+</html>

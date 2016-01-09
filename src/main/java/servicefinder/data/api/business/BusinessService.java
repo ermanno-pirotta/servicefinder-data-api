@@ -71,7 +71,8 @@ public class BusinessService {
 	private void sendNotificationEmail(Map<Business, Integer> businesses, QuoteRequest request){
 		for(Business business: businesses.keySet()){
 			try {
-				mailService.send(business.getEmail(), "Nuova richiesta di preventivo", "test");
+				mailService.sendNotificationToBusiness(business, request);
+				logger.debug("Email sent for request %s to %s", request.getId(), business.getEmail());
 			} catch (MessagingException e) {
 				logger.error(String.format("Unexpected error while sending the email to user %s, with exception message = ",business.getEmail(),e.getMessage()));
 			}

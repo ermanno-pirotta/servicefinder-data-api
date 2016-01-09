@@ -16,8 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,6 +39,12 @@ public abstract class ControllerTest {
 	protected String jsonOf(Object objectToConvert)
 			throws JsonProcessingException {
 		return this.jsonMapper.writeValueAsString(objectToConvert);
+	}
+	
+	protected String jsonOf(Object objectToConvert, Class<?> view)
+			throws JsonProcessingException {
+		this.jsonMapper = this.jsonMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+		return this.jsonMapper.writerWithView(view).writeValueAsString(objectToConvert);
 	}
 
 	@Before

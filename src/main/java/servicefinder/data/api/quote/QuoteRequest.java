@@ -12,6 +12,8 @@ import org.springframework.data.couchbase.core.mapping.Field;
 
 import servicefinder.data.api.http.Resource;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Document
 public class QuoteRequest implements Resource, Serializable{
 
@@ -27,11 +29,18 @@ public class QuoteRequest implements Resource, Serializable{
 	private String surname;
 	private String email;
 	private String phone;
+	
+	@JsonView(View.Summary.class)
 	private String postalCode;
+	@JsonView(View.Summary.class)
 	private String placeName;
 	
 	private String categoryName;
+	
+	@JsonView(View.Summary.class)
 	private List<String> requestedServices;
+	
+	@JsonView(View.Summary.class)
 	private String description;
 	private boolean isValid;
 
